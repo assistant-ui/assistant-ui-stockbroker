@@ -4,3 +4,5 @@ dist
 .env
 pdfs/**
 src/generated/**
+# LangGraph API
+.langgraph_api

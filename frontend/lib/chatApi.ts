@@ -17,7 +17,7 @@ export const createAssistant = async (graphId: string) => {
 
 export const createThread = async () => {
   const client = createClient();
-  return client.threads.create();
+  return client.threads.create({});
 };
 
 export const getThreadState = async (

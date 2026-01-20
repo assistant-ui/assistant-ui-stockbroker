@@ -12,11 +12,12 @@
   "author": "Brace Sproul",
   "license": "MIT",
   "dependencies": {
-    "@langchain/community": "^0.3.24",
-    "@langchain/core": "^0.3.29",
-    "@langchain/langgraph": "^0.2.39",
-    "@langchain/openai": "^0.3.17",
-    "zod": "^3.24.1"
+    "@langchain/community": "^1.1.5",
+    "@langchain/core": "^1.1.16",
+    "@langchain/langgraph": "^1.1.0",
+    "@langchain/openai": "^1.2.3",
+    "@langchain/tavily": "^1.2.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.8",
