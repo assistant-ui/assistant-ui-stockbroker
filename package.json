@@ -19,7 +19,9 @@
     "deps:check:repo": "turbo run deps:check",
     "deps:update": "npx taze major --force --write && pnpm install",
     "deps:update:repo": "npx taze major --force --write && turbo run deps:update:no-install && pnpm install",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "dev:frontend": "turbo run dev --filter=@stockbroker/frontend",
+    "dev:backend": "turbo run dev --filter=@stockbroker/backend"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.2",

@@ -29,11 +29,11 @@ export const PurchaseStockTool = makeAssistantToolUI<PurchaseStockArgs, string>(
       }
 
       const handleReject = () => {
-        addResult({ cancelled: true });
+        addResult(JSON.stringify({ cancelled: true }));
       };
 
       const handleConfirm = async () => {
-        addResult({ approve: true });
+        addResult(JSON.stringify({ approve: true }));
       };
 
       return (
