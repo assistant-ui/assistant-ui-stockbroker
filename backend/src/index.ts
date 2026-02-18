@@ -1,4 +1,4 @@
-import { type AIMessage, ToolMessage } from "@langchain/core/messages";
+import { AIMessage, ToolMessage } from "@langchain/core/messages";
 import {
   Annotation,
   END,
@@ -52,9 +52,7 @@ const shouldContinue = (state: typeof GraphAnnotation.State) => {
 
   const lastMessage = messages[messages.length - 1];
 
-  // Cast here since `tool_calls` does not exist on `BaseMessage`
-  const messageCastAI = lastMessage as AIMessage;
-  if (messageCastAI._getType() !== "ai" || !messageCastAI.tool_calls?.length) {
+  if (!AIMessage.isInstance(lastMessage) || !lastMessage.tool_calls?.length) {
     // LLM did not call any tools, or it's not an AI message, so we should end.
     return END;
   }
@@ -64,7 +62,7 @@ const shouldContinue = (state: typeof GraphAnnotation.State) => {
     return "execute_purchase";
   }
 
-  const { tool_calls } = messageCastAI;
+  const { tool_calls } = lastMessage;
   if (!tool_calls?.length) {
     throw new Error(
       "Expected tool_calls to be an array with at least one element",
@@ -83,9 +81,9 @@ const shouldContinue = (state: typeof GraphAnnotation.State) => {
 
 const findCompanyName = async (companyName: string) => {
   // Use the web search tool to find the ticker symbol for the company.
-  const searchResults: string = await webSearchTool.invoke(
-    `What is the ticker symbol for ${companyName}?`,
-  );
+  const searchResults = await webSearchTool.invoke({
+    query: `What is the ticker symbol for ${companyName}?`,
+  });
   const llmWithTickerOutput = llm.withStructuredOutput(
     z
       .object({
@@ -99,7 +97,7 @@ const findCompanyName = async (companyName: string) => {
   const extractedTicker = await llmWithTickerOutput.invoke([
     {
       role: "user",
-      content: `Given the following search results, extract the ticker symbol for ${companyName}:\n${searchResults}`,
+      content: `Given the following search results, extract the ticker symbol for ${companyName}:\n${JSON.stringify(searchResults)}`,
     },
   ]);
 
@@ -109,13 +107,11 @@ const findCompanyName = async (companyName: string) => {
 const preparePurchaseDetails = async (state: typeof GraphAnnotation.State) => {
   const { messages } = state;
   const lastMessage = messages[messages.length - 1];
-  if (lastMessage._getType() !== "ai") {
+  if (!AIMessage.isInstance(lastMessage)) {
     throw new Error("Expected the last message to be an AI message");
   }
 
-  // Cast here since `tool_calls` does not exist on `BaseMessage`
-  const messageCastAI = lastMessage as AIMessage;
-  const purchaseStockTool = messageCastAI.tool_calls?.find(
+  const purchaseStockTool = lastMessage.tool_calls?.find(
     (tc) => tc.name === "purchase_stock",
   );
   if (!purchaseStockTool) {
@@ -131,7 +127,7 @@ const preparePurchaseDetails = async (state: typeof GraphAnnotation.State) => {
       // Ask the user for the missing information. Also, if the
       // last message had a tool call we need to add a tool message
       // to the messages array.
-      const toolMessages = messageCastAI.tool_calls?.map((tc) => {
+      const toolMessages = lastMessage.tool_calls?.map((tc) => {
         return {
           role: "tool",
           content: `Please provide the missing information for the ${tc.name} tool.`,
@@ -158,8 +154,9 @@ const preparePurchaseDetails = async (state: typeof GraphAnnotation.State) => {
 
   if (!maxPurchasePrice) {
     // If `maxPurchasePrice` is not defined, default to the current price.
-    const priceSnapshot = await priceSnapshotTool.invoke({ ticker });
-    maxPurchasePrice = priceSnapshot.snapshot.price;
+    const priceSnapshotResult = await priceSnapshotTool.invoke({ ticker });
+    const priceSnapshotData = JSON.parse(priceSnapshotResult);
+    maxPurchasePrice = priceSnapshotData.snapshot.price;
   }
 
   // Now we have the final ticker, we can return the purchase information.
@@ -175,7 +172,7 @@ const preparePurchaseDetails = async (state: typeof GraphAnnotation.State) => {
 const purchaseApproval = async (state: typeof GraphAnnotation.State) => {
   const { messages } = state;
   const lastMessage = messages[messages.length - 1];
-  if (!(lastMessage instanceof ToolMessage)) {
+  if (!ToolMessage.isInstance(lastMessage)) {
     // Interrupt the node to request permission to execute the purchase.
     throw new NodeInterrupt("Please confirm the purchase before executing.");
   }
@@ -184,7 +181,7 @@ const purchaseApproval = async (state: typeof GraphAnnotation.State) => {
 const shouldExecute = (state: typeof GraphAnnotation.State) => {
   const { messages } = state;
   const lastMessage = messages[messages.length - 1];
-  if (!(lastMessage instanceof ToolMessage)) {
+  if (!ToolMessage.isInstance(lastMessage)) {
     // Interrupt the node to request permission to execute the purchase.
     throw new NodeInterrupt("Please confirm the purchase before executing.");
   }
