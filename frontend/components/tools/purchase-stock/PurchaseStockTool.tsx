@@ -1,8 +1,8 @@
 "use client";
 
-import { TransactionConfirmationPending } from "./transaction-confirmation-pending";
-import { TransactionConfirmationFinal } from "./transaction-confirmation-final";
 import { makeAssistantToolUI } from "@assistant-ui/react";
+import { TransactionConfirmationFinal } from "./transaction-confirmation-final";
+import { TransactionConfirmationPending } from "./transaction-confirmation-pending";
 
 type PurchaseStockArgs = {
   ticker: string;
@@ -24,7 +24,7 @@ export const PurchaseStockTool = makeAssistantToolUI<PurchaseStockArgs, string>(
       let resultObj: PurchaseStockResult;
       try {
         resultObj = result ? JSON.parse(result) : {};
-      } catch (e) {
+      } catch (_e) {
         resultObj = { error: result! };
       }
 

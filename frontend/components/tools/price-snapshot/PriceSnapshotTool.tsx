@@ -1,7 +1,7 @@
 "use client";
 
-import { PriceSnapshot } from "./price-snapshot";
 import { makeAssistantToolUI } from "@assistant-ui/react";
+import { PriceSnapshot } from "./price-snapshot";
 
 type PriceSnapshotToolArgs = {
   ticker: string;
@@ -23,7 +23,7 @@ export const PriceSnapshotTool = makeAssistantToolUI<
     let resultObj: PriceSnapshotToolResult | { error: string };
     try {
       resultObj = result ? JSON.parse(result) : {};
-    } catch (e) {
+    } catch (_e) {
       resultObj = { error: result! };
     }
 

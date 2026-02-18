@@ -1,10 +1,10 @@
 import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
 import { tool } from "@langchain/core/tools";
 import {
-  IncomeStatementsResponse,
   BalanceSheetsResponse,
   CashFlowStatementsResponse,
   CompanyFactsResponse,
+  IncomeStatementsResponse,
   SnapshotResponse,
 } from "types.js";
 import { z } from "zod";

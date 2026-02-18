@@ -1,5 +1,5 @@
-import { ThreadState, Client } from "@langchain/langgraph-sdk";
 import { LangChainMessage } from "@assistant-ui/react-langgraph";
+import { Client, ThreadState } from "@langchain/langgraph-sdk";
 
 const createClient = () => {
   const apiUrl =
@@ -47,7 +47,7 @@ export const sendMessage = async (params: {
 }) => {
   const client = createClient();
 
-  let input: Record<string, any> | null = {
+  const input: Record<string, any> | null = {
     messages: params.messages,
   };
   const config = {

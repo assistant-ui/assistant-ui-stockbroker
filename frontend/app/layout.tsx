@@ -1,7 +1,7 @@
 import "./globals.css";
 
-import { cn } from "@/lib/utils";
 import { Montserrat } from "next/font/google";
+import { cn } from "@/lib/utils";
 import { MyRuntimeProvider } from "./MyRuntimeProvider";
 
 const montserrat = Montserrat({ subsets: ["latin"] });

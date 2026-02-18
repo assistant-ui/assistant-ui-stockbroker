@@ -1,22 +1,18 @@
-import { ToolNode } from "@langchain/langgraph/prebuilt";
+import { type AIMessage, ToolMessage } from "@langchain/core/messages";
 import {
   Annotation,
   END,
+  MessagesAnnotation,
+  NodeInterrupt,
   START,
   StateGraph,
-  NodeInterrupt,
-  MessagesAnnotation,
 } from "@langchain/langgraph";
-import {
-  BaseMessage,
-  ToolMessage,
-  type AIMessage,
-} from "@langchain/core/messages";
+import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { ChatOpenAI } from "@langchain/openai";
 import {
+  ALL_TOOLS_LIST,
   priceSnapshotTool,
   StockPurchase,
-  ALL_TOOLS_LIST,
   webSearchTool,
 } from "tools.js";
 import { z } from "zod";
@@ -206,7 +202,7 @@ const executePurchase = async (state: typeof GraphAnnotation.State) => {
   // Execute the purchase. In this demo we'll just return a success message.
   const { ticker, quantity, maxPurchasePrice } = requestedStockPurchaseDetails;
 
-  const toolCallId = "tool_" + Math.random().toString(36).substring(2);
+  const toolCallId = `tool_${Math.random().toString(36).substring(2)}`;
   return {
     messages: [
       {

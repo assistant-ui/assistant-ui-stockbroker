@@ -1,10 +1,10 @@
 "use client";
 
 import { Thread } from "@assistant-ui/react";
+import { makeMarkdownText } from "@assistant-ui/react-markdown";
 import { PriceSnapshotTool } from "@/components/tools/price-snapshot/PriceSnapshotTool";
 import { PurchaseStockTool } from "@/components/tools/purchase-stock/PurchaseStockTool";
 import { ToolFallback } from "@/components/tools/ToolFallback";
-import { makeMarkdownText } from "@assistant-ui/react-markdown";
 
 const MarkdownText = makeMarkdownText({});
 
