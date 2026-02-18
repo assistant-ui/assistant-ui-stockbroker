@@ -60,5 +60,5 @@ export const PurchaseStockTool = makeAssistantToolUI<PurchaseStockArgs, string>(
         </div>
       );
     },
-  }
+  },
 );

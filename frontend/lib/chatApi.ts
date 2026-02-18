@@ -21,7 +21,7 @@ export const createThread = async () => {
 };
 
 export const getThreadState = async (
-  threadId: string
+  threadId: string,
 ): Promise<ThreadState<Record<string, any>>> => {
   const client = createClient();
   return client.threads.getState(threadId);
@@ -32,7 +32,7 @@ export const updateState = async (
   fields: {
     newState: Record<string, any>;
     asNode?: string;
-  }
+  },
 ) => {
   const client = createClient();
   return client.threads.updateState(threadId, {
@@ -63,6 +63,6 @@ export const sendMessage = async (params: {
       input,
       config,
       streamMode: "messages",
-    }
+    },
   );
 };

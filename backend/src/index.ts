@@ -71,7 +71,7 @@ const shouldContinue = (state: typeof GraphAnnotation.State) => {
   const { tool_calls } = messageCastAI;
   if (!tool_calls?.length) {
     throw new Error(
-      "Expected tool_calls to be an array with at least one element"
+      "Expected tool_calls to be an array with at least one element",
     );
   }
 
@@ -88,7 +88,7 @@ const shouldContinue = (state: typeof GraphAnnotation.State) => {
 const findCompanyName = async (companyName: string) => {
   // Use the web search tool to find the ticker symbol for the company.
   const searchResults: string = await webSearchTool.invoke(
-    `What is the ticker symbol for ${companyName}?`
+    `What is the ticker symbol for ${companyName}?`,
   );
   const llmWithTickerOutput = llm.withStructuredOutput(
     z
@@ -96,9 +96,9 @@ const findCompanyName = async (companyName: string) => {
         ticker: z.string().describe("The ticker symbol of the company"),
       })
       .describe(
-        `Extract the ticker symbol of ${companyName} from the provided context.`
+        `Extract the ticker symbol of ${companyName} from the provided context.`,
       ),
-    { name: "extract_ticker" }
+    { name: "extract_ticker" },
   );
   const extractedTicker = await llmWithTickerOutput.invoke([
     {
@@ -120,11 +120,11 @@ const preparePurchaseDetails = async (state: typeof GraphAnnotation.State) => {
   // Cast here since `tool_calls` does not exist on `BaseMessage`
   const messageCastAI = lastMessage as AIMessage;
   const purchaseStockTool = messageCastAI.tool_calls?.find(
-    (tc) => tc.name === "purchase_stock"
+    (tc) => tc.name === "purchase_stock",
   );
   if (!purchaseStockTool) {
     throw new Error(
-      "Expected the last AI message to have a purchase_stock tool call"
+      "Expected the last AI message to have a purchase_stock tool call",
     );
   }
   let { maxPurchasePrice, companyName, ticker } = purchaseStockTool.args;

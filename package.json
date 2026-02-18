@@ -10,11 +10,15 @@
   ],
   "scripts": {
     "build": "pnpm turbo run build",
-    "lint": "pnpm turbo run lint",
-    "format": "pnpm turbo run format"
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "check": "biome check --write ."
   },
   "devDependencies": {
-    "turbo": "latest"
+    "@biomejs/biome": "^2.4.2",
+    "turbo": "^2.8.9"
   },
   "packageManager": "pnpm@9.15.3"
 }
