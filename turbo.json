@@ -5,6 +5,19 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["**/dist/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "deps:check": {
+      "cache": false
+    },
+    "deps:update": {
+      "cache": false
+    },
+    "deps:update:no-install": {
+      "cache": false
     }
   }
 }

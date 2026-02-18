@@ -1,11 +1,12 @@
 {
-  "name": "financial-expert",
+  "name": "@stockbroker/backend",
   "description": "Financial expert LangGraph.js example",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "dev": "npx @langchain/langgraph-cli dev",
     "build": "tsc --project tsconfig.json --outDir dist",
-    "start": "tsx --experimental-wasm-modules -r dotenv/config src/index.ts",
+    "start": "npx @langchain/langgraph-cli dev",
     "deps:check": "npx taze major -f",
     "deps:update": "npx taze major -f -w && pnpm install",
     "deps:update:no-install": "npx taze major -f -w"
@@ -13,7 +14,7 @@
   "author": "Brace Sproul",
   "license": "MIT",
   "dependencies": {
-"@langchain/core": "^1.1.26",
+    "@langchain/core": "^1.1.26",
     "@langchain/langgraph": "^1.1.5",
     "@langchain/openai": "^1.2.8",
     "@langchain/tavily": "^1.2.0",
@@ -22,7 +23,6 @@
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.13",
     "dotenv": "^16.6.1",
-    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
