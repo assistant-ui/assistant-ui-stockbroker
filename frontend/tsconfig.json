@@ -8,24 +8,14 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@assistant-ui/*": [
-        "../../packages/*/src"
-      ],
-      "@assistant-ui/react/*": [
-        "../../packages/react/src/*"
-      ]
+      "@/*": ["./*"],
+      "@assistant-ui/*": ["../../packages/*/src"],
+      "@assistant-ui/react/*": ["../../packages/react/src/*"]
     },
     "allowJs": true,
     "strictNullChecks": true,
     "jsx": "react-jsx",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "strict": false,
     "noEmit": true,
@@ -42,7 +32,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
