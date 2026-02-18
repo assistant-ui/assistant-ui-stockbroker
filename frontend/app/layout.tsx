@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { Montserrat } from "next/font/google";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { MyRuntimeProvider } from "./MyRuntimeProvider";
 
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <MyRuntimeProvider>
       <html lang="en">
-        <body className={cn(montserrat.className, "h-dvh")}>{children}</body>
+        <body className={cn(montserrat.className, "h-dvh")}>
+          <TooltipProvider>{children}</TooltipProvider>
+        </body>
       </html>
     </MyRuntimeProvider>
   );

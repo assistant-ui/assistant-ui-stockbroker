@@ -5,21 +5,24 @@
   "type": "module",
   "scripts": {
     "build": "tsc --project tsconfig.json --outDir dist",
-    "start": "tsx --experimental-wasm-modules -r dotenv/config src/index.ts"
+    "start": "tsx --experimental-wasm-modules -r dotenv/config src/index.ts",
+    "deps:check": "npx taze major -f",
+    "deps:update": "npx taze major -f -w && pnpm install",
+    "deps:update:no-install": "npx taze major -f -w"
   },
   "author": "Brace Sproul",
   "license": "MIT",
   "dependencies": {
-    "@langchain/community": "^0.3.24",
-    "@langchain/core": "^0.3.29",
-    "@langchain/langgraph": "^0.2.39",
-    "@langchain/openai": "^0.3.17",
-    "zod": "^3.24.1"
+    "@langchain/community": "^1.1.16",
+    "@langchain/core": "^1.1.26",
+    "@langchain/langgraph": "^1.1.5",
+    "@langchain/openai": "^1.2.8",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@tsconfig/recommended": "^1.0.8",
-    "dotenv": "^16.4.7",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
+    "@tsconfig/recommended": "^1.0.13",
+    "dotenv": "^16.6.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

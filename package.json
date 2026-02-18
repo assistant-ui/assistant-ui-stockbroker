@@ -14,11 +14,15 @@
     "lint:fix": "biome lint --write .",
     "format": "biome format --write .",
     "format:check": "biome format .",
-    "check": "biome check --write ."
+    "check": "biome check --write .",
+    "deps:check": "npx taze major --force",
+    "deps:check:repo": "turbo run deps:check",
+    "deps:update": "npx taze major --force --write && pnpm install",
+    "deps:update:repo": "npx taze major --force --write && turbo run deps:update:no-install && pnpm install"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.2",
     "turbo": "^2.8.9"
   },
-  "packageManager": "pnpm@9.15.3"
+  "packageManager": "pnpm@10.30.0"
 }

@@ -115,6 +115,25 @@
       "enabled": false
     }
   },
+  "overrides": [
+    {
+      "includes": ["frontend/components/assistant-ui/**", "frontend/components/ui/**"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noImgElement": "off"
+          },
+          "a11y": {
+            "noRedundantAlt": "off",
+            "useFocusableInteractive": "off"
+          },
+          "correctness": {
+            "useUniqueElementIds": "off"
+          }
+        }
+      }
+    }
+  ],
   "files": {
     "includes": [
       "**",
